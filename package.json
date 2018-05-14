@@ -1,0 +1,35 @@
+{
+  "name": "snake-server",
+  "version": "1.0.0",
+  "description": "Server for storing snake ranks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devserver": "./node_modules/nodemon/bin/nodemon.js app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c3zi/snake-server.git"
+  },
+  "keywords": [
+    "snake",
+    "game"
+  ],
+  "author": "Przemyslaw Furtak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/c3zi/snake-server/issues"
+  },
+  "homepage": "https://github.com/c3zi/snake-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.3",
+    "sqlite": "^2.9.1",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
+}
