@@ -22,18 +22,42 @@ app.put('/scores/:token', (req, res) => {
     const token = req.params.token;
     const snake = req.body.snake;
     const item = req.body.item; // x, y
+    const snakeLength = snake.length - 1;
 
-    let snakeItemSize = Math.abs(snake[snake.length-1].x - snake[snake.length-2].x);
-    if (snakeItemSize === 0) {
-        snakeItemSize = Math.abs(snake[snake.length-1].y - snake[snake.length-2].y);
+    if (snake[snakeLength].x !== item.x || snake[snakeLength].y !== item.y) {
+        res.status(409).send();
     }
 
-    const head = snake[snake.length - 1];
+    const diffX = snake[snakeLength-1].x - snake[snakeLength-2].x;
+    const diffY = snake[snakeLength-1].y - snake[snakeLength-2].y;
+    let direction = null;
 
-    if (head.x + snakeItemSize === item.x || head.y + snakeItemSize === item.y) {
-        db.incPoint(token);
+    if (diffX > 0) {
+        direction = 'right';
+    } else if (diffX < 0) {
+        direction = 'left';
+    } else if (diffY > 0) {
+        direction = 'down';
+    } else {
+        direction = 'up';
     }
 
+    snake.forEach(function(value, index) {
+        let x = value.x;
+        let y = value.y;
+        const movement = ((snakeLength - index - 1) * 15);
+        if (direction === 'right') {
+            x = value.x + movement;
+        } else if (direction === 'left') {
+            x = value.x - movement;
+        } else if (direction === 'down') {
+            y = value.y + movement;
+        } else {
+            y = value.y - movement;
+        }
+    });
+
+    db.incPoint(token);
     res.status(200).send();
 });
 
